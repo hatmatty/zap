@@ -15,6 +15,7 @@ pub struct Config<'src> {
 
 	pub server_output: &'src str,
 	pub client_output: &'src str,
+	pub shared_output: &'src str,
 
 	pub casing: Casing,
 	pub yield_type: YieldType,

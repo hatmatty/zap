@@ -37,6 +37,7 @@ pub struct Output {
 pub struct Code {
 	pub server: Output,
 	pub client: Output,
+	pub shared: Output,
 }
 
 #[derive(Debug)]
@@ -70,6 +71,11 @@ pub fn run(input: &str) -> Return {
 					path: config.client_output.into(),
 					code: output::luau::client::code(&config),
 					defs: output::typescript::client::code(&config),
+				},
+				shared: Output {
+					path: config.shared_output.into(),
+					defs: output::typescript::shared::code(&config),
+					code: output::luau::client::code(&config), // temp
 				},
 			}),
 			diagnostics: reports.into_iter().map(|report| report.into()).collect(),
@@ -108,6 +114,10 @@ pub fn run(input: &str) -> Return {
 				client: Output {
 					code: output::luau::client::code(&config),
 					defs: output::typescript::client::code(&config),
+				},
+				shared: Output {
+					defs: output::typescript::shared::code(&config),
+					code: output::luau::client::code(&config), // temp
 				},
 			}),
 			diagnostics,

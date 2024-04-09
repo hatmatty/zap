@@ -91,6 +91,7 @@ impl<'src> Converter<'src> {
 
 		let (server_output, ..) = self.str_opt("server_output", "network/server.lua", &config.opts);
 		let (client_output, ..) = self.str_opt("client_output", "network/client.lua", &config.opts);
+		let (shared_output, ..) = self.str_opt("shared_output", "network/shared.lua", &config.opts);
 
 		let casing = self.casing_opt(&config.opts);
 		let yield_type = self.yield_type_opt(typescript, &config.opts);
@@ -107,6 +108,7 @@ impl<'src> Converter<'src> {
 
 			server_output,
 			client_output,
+			shared_output,
 
 			casing,
 			yield_type,

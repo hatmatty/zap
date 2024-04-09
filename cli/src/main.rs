@@ -34,12 +34,17 @@ fn main() -> Result<()> {
 	if let Some(code) = code {
 		let server_path = config_path.parent().unwrap().join(code.server.path);
 		let client_path = config_path.parent().unwrap().join(code.client.path);
+		let shared_path = config_path.parent().unwrap().join(code.shared.path);
 
 		if let Some(parent) = server_path.parent() {
 			std::fs::create_dir_all(parent)?;
 		}
 
 		if let Some(parent) = client_path.parent() {
+			std::fs::create_dir_all(parent)?;
+		}
+
+		if let Some(parent) = shared_path.parent() {
 			std::fs::create_dir_all(parent)?;
 		}
 
@@ -63,6 +68,15 @@ fn main() -> Result<()> {
 				client_path.with_extension("d.ts")
 			};
 
+			std::fs::write(file_path, defs)?;
+		}
+
+		if let Some(defs) = code.shared.defs {
+			let file_path = if shared_path.file_stem().unwrap() == "init" {
+				shared_path.with_file_name("index.d.ts")
+			} else {
+				shared_path.with_extension("d.ts")
+			};
 			std::fs::write(file_path, defs)?;
 		}
 	}

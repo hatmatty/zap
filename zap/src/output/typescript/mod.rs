@@ -2,6 +2,7 @@ use crate::config::{Config, Enum, Ty};
 
 pub mod client;
 pub mod server;
+pub mod shared;
 
 pub trait Output {
 	fn push(&mut self, s: &str);
